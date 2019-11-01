@@ -13,15 +13,16 @@ namespace SEproject
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginedPage : ContentPage
     {
-        Account account;
+        Manage manage;
         public LoginedPage()
         {
             InitializeComponent();
+            manage = new Manage();
         }
 
         protected override void OnAppearing()
         {
-            account = (Account)BindingContext;
+            manage.setAccount((Account)BindingContext);
             base.OnAppearing();
         }
 
@@ -40,7 +41,7 @@ namespace SEproject
         {
             Navigation.PushAsync(new ContainerList
             {
-                BindingContext = account
+                BindingContext = manage
             });
         }
 

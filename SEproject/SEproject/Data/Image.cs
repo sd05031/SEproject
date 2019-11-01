@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SEproject.Data
 {
-    class Image
+    public class Image
     {
         string uid;
         string os;

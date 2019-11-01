@@ -5,17 +5,16 @@ using System.Text;
 
 namespace SEproject.Data
 {
-    class Container
+    public class Container
     {
-        string uid;
-        string tag;
-        string status;
-        string image;
-        int port;
-        string short_id;
-        string started_time;
-        string uuid;
-
+        public string uid;
+        public string tag;
+        public string status;
+        public string image;
+        public int port;
+        public string short_id;
+        public string started_time;
+        public string uuid;
 
         public Container(string text)
         {
