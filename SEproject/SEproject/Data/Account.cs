@@ -10,7 +10,8 @@ namespace SEproject.Data
 {
     class Account
     {
-        private string token;
+        //private string token;
+        string token;
         Container[] containers;
         Image[] images;
         string path;
@@ -65,7 +66,15 @@ namespace SEproject.Data
             JObject result = JObject.Parse(GET("containers"));
             if( result["code"].ToString() == "0")
             {
-                return 0;
+                JArray jarray = JArray.Parse(result["msg"].ToString());
+                containers = new Container[jarray.Count];
+
+                for ( int i = 0; i < jarray.Count; i ++)
+                {
+                    containers[i] = new Container(jarray[i].ToString());
+                }
+                return jarray.Count;
+
             }
             else
             {
@@ -78,12 +87,29 @@ namespace SEproject.Data
             JObject result = JObject.Parse(GET("images"));
             if ( result["code"].ToString() == "0" )
             {
-                return 0;
+                JArray jarray = JArray.Parse(result["msg"].ToString());
+                images = new Image[jarray.Count];
+
+                for (int i = 0; i < jarray.Count; i++)
+                {
+                    images[i] = new Image(jarray[i].ToString());
+                }
+                return jarray.Count;
             }
             else
             {
                 return -1;
             }
+        }
+
+        public Container[] getContainers()
+        {
+            return containers;
+        }
+
+        public Image[] getImages()
+        {
+            return images;
         }
     }
 }

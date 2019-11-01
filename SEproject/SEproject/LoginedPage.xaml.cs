@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SEproject.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,16 @@ namespace SEproject
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginedPage : ContentPage
     {
+        Account account;
         public LoginedPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            account = (Account)BindingContext;
+            base.OnAppearing();
         }
 
         protected override bool OnBackButtonPressed()
@@ -30,7 +38,10 @@ namespace SEproject
         }
         private void getContainers(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new ContainerList
+            {
+                BindingContext = account
+            });
         }
 
         private void showDirectory(object sender, EventArgs e)

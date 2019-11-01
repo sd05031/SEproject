@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+
 using SEproject.Data;
 
 namespace SEproject
@@ -26,8 +27,10 @@ namespace SEproject
             int result = account.Login(username_entry.Text.ToString(), password_entry.Text.ToString());
             if ( result == 0)
             {
-                Application.Current.MainPage = new NavigationPage(new LoginedPage());
-
+                Application.Current.MainPage = new NavigationPage(new LoginedPage
+                {
+                    BindingContext = account
+                });
             }
             else
             {

@@ -9,7 +9,6 @@ namespace SEproject
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
         }
 
