@@ -8,9 +8,22 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <StackLayout
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Orientation="Vertical">
+            <StackLayout
+                Orientation="Horizontal">
+                <Label Text="Username : "/>
+            </StackLayout>
+            
+            <StackLayout
+                Orientation="Horizontal">
+                <Label Text="Password : "/>
+            </StackLayout>
+
+            <Button Text="Login"/>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>
