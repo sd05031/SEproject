@@ -9,20 +9,32 @@
     <StackLayout>
         <!-- Place new controls here -->
         <StackLayout
-            HorizontalOptions="CenterAndExpand"
+            Margin="30,0"
+            HorizontalOptions="Fill"
             VerticalOptions="CenterAndExpand"
             Orientation="Vertical">
             <StackLayout
+                HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal">
-                <Label Text="Username : "/>
+                <Label Text="Username : " VerticalTextAlignment="Center"/>
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    x:Name="username_entry"/>
             </StackLayout>
             
             <StackLayout
+                HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal">
-                <Label Text="Password : "/>
+                <Label Text="Password : " VerticalTextAlignment="Center"/>
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    x:Name="password_entry"
+                    IsPassword="True"/>
             </StackLayout>
 
-            <Button Text="Login"/>
+            <Button Text="Login"
+                    HorizontalOptions="Center"
+                    Clicked="OnLoginButton"/>
         </StackLayout>
     </StackLayout>
 
