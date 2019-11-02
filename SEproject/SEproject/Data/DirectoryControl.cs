@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -10,16 +11,19 @@ namespace SEproject.Data
     {
         string path;
         private string token;
+        string[] file;
+        string[] directory;
 
         public DirectoryControl(string t)
         {
+            path = ".";
             token = t;
         }
 
-        int get()
+        string POST()
         {
             string url = "http://nekop.kr:3000/api/v1/directory";
-            string postdata = "path=.";
+            string postdata = "path="+path;
             byte[] bytearray = Encoding.UTF8.GetBytes(postdata);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -39,7 +43,44 @@ namespace SEproject.Data
             datastream = resp.GetResponseStream();
             StreamReader sr = new StreamReader(datastream);
             string rtext = sr.ReadToEnd();
+
+            return rtext;
         }
 
+        int get_list()
+        {
+            JObject json = JObject.Parse(POST());
+            if ( json["code"].ToString() == "0")
+            {
+                var msg = json["msg"];
+                var directory_list = msg["dir"].ToString();
+                var file_list = msg["file"].ToString();
+
+                JArray directories = JArray.Parse(directory_list);
+                JArray files = JArray.Parse(file_list);
+
+                file = new string[files.Count];
+                directory = new string[directories.Count];
+
+                for ( int i = 0; i < directories.Count; i++)
+                {
+                    directory[i] = directories[i].ToString();
+                }
+                
+                for ( int i = 0; i < files.Count; i ++)
+                {
+                    file[i] = files[i].ToString();
+                }
+
+                return 0;
+            }
+            return -1;
+        }
+
+        public void movepath(string dir)
+        {
+            path = path + "/" + dir;
+            get_list();
+        }
     }
 }
