@@ -30,7 +30,7 @@ namespace SEproject.Data
             uuid = j["uuid"].ToString();
         }
 
-        public Container(Container con)
+        /*public Container(Container con)
         {
             this.uid = con.uid;
             this.Tag = con.Tag;
@@ -40,6 +40,6 @@ namespace SEproject.Data
             this.short_id = con.short_id;
             this.started_time = con.started_time;
             this.uuid = con.uuid;
-        }
+        }*/
     }
 }

@@ -11,18 +11,17 @@ using Xamarin.Forms.Xaml;
 namespace SEproject
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ContainerList : ContentPage
+    public partial class ImageList : ContentPage
     {
         Manage manage;
-
-        public ContainerList()
+        public ImageList()
         {
             InitializeComponent();
         }
         protected override void OnAppearing()
         {
             manage = (Manage)BindingContext;
-            CList.ItemsSource = manage.getContainers();
+            IList.ItemsSource = manage.getImages();
             base.OnAppearing();
         }
     }

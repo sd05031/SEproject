@@ -35,7 +35,10 @@ namespace SEproject
 
         private void getImages(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new ImageList
+            {
+                BindingContext = manage
+            });
         }
         private void getContainers(object sender, EventArgs e)
         {
