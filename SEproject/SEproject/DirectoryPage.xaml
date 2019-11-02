@@ -10,11 +10,12 @@
         <StackLayout
                 Orientation="Vertical"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="Fill">
+                VerticalOptions="StartAndExpand">
 
             <Label Text="     Directory List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
-            <ListView x:Name="DirList">
+            <ListView x:Name="DirList"
+                      VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding}"
@@ -25,7 +26,8 @@
 
             <Label Text="     File List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
-            <ListView x:Name="FList">
+            <ListView x:Name="FList"
+                          VerticalOptions="EndAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding}"
@@ -35,6 +37,5 @@
             </ListView>
 
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>
