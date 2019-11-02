@@ -10,16 +10,18 @@ using Xamarin.Forms.Xaml;
 
 namespace SEproject
 {
-    class sample
+
+    public class Test
     {
-        public string tag;
-        public string status;
+        public string Tag { get; set; }
+        public string Status { get; set; }
+        public string example1;
     }
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContainerList : ContentPage
     {
         Manage manage;
-        public IList<Container> Containers { get; private set; }
+
         public ContainerList()
         {
             InitializeComponent();
@@ -27,14 +29,7 @@ namespace SEproject
         protected override void OnAppearing()
         {
             manage = (Manage)BindingContext;
-            Containers = new List<Container>();
-            
-            manage.getContainers();
-            foreach(var c in manage.getContainers())
-            {
-                Containers.Add(c);
-            }
-            BindingContext = this;
+            CList.ItemsSource = manage.getContainers();
             base.OnAppearing();
         }
     }

@@ -6,31 +6,18 @@
              mc:Ignorable="d"
              x:Class="SEproject.ContainerList">
 
-    <ListView x:Name="listView"
-              Margin="20"
-              ItemsSource="{Binding Containers}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Row="1"
-                               Text="{Binding tag}"
-                               FontAttributes="Bold"/>
-                        <Label Grid.Row="1"
-                               Grid.Column="1"
-                               Text="{Binding status}"/>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout>
+        <ListView x:Name="CList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Tag}"
+                              Detail="{Binding Status}"
+                              TextColor="Black"
+                              DetailColor="Black"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="tester button"/>
+    </StackLayout>
 
 </ContentPage>

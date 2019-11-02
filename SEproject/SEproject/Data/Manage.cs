@@ -10,7 +10,7 @@ namespace SEproject.Data
     class Manage
     {
         Account account;
-        Container[] containers;
+        private IList<Container> containers { get; set; }
         Image[] images;
         string path;
 
@@ -19,6 +19,11 @@ namespace SEproject.Data
             containers = null;
             images = null;
             path = ".";
+        }
+
+        public string gettoken()
+        {
+            return account.getToken();
         }
 
         public void setAccount(Account a)
@@ -46,18 +51,17 @@ namespace SEproject.Data
         }
         public int update_container()
         {
+            containers = new List<Container>();
             JObject result = JObject.Parse(GET("containers"));
             if (result["code"].ToString() == "0")
             {
                 JArray jarray = JArray.Parse(result["msg"].ToString());
-                containers = new Container[jarray.Count];
 
                 for (int i = 0; i < jarray.Count; i++)
                 {
-                    containers[i] = new Container(jarray[i].ToString());
+                    containers.Add(new Container(jarray[i].ToString()));
                 }
                 return jarray.Count;
-
             }
             else
             {
@@ -85,15 +89,11 @@ namespace SEproject.Data
             }
         }
 
-        public Container[] getContainers()
+        public IList<Container> getContainers()
         {
-            if (containers == null)
-            {
-                update_container();
-            }
+            update_container();
             return containers;
         }
-
         public Image[] getImages()
         {
             if (images == null)
