@@ -6,24 +6,35 @@
              mc:Ignorable="d"
              x:Class="SEproject.DirectoryPage">
     <ContentPage.Content>
-        <ScrollView
-            Orientation="Vertical"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand">
-            <StackLayout
+
+        <StackLayout
                 Orientation="Vertical"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="Fill">
 
-                <ListView x:Name="DirList">
+            <Label Text="     Directory List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
-                </ListView>
+            <ListView x:Name="DirList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding}"
+                                  TextColor="Black"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-                <ListView x:Name="FList">
-                    
-                </ListView>
-            
-            </StackLayout>
-        </ScrollView>
+            <Label Text="     File List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
+
+            <ListView x:Name="FList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding}"
+                                  TextColor="Black"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
