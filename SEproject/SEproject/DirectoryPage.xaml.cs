@@ -35,5 +35,16 @@ namespace SEproject
             
             base.OnAppearing();
         }
+
+        void DirTapped(Object sender, SelectedItemChangedEventArgs e)
+        {
+            string item = e.SelectedItem.ToString();
+            DisplayAlert("DirSelected", e.SelectedItemIndex.ToString(), "OK");
+        }
+        void FTapped(Object sender, SelectedItemChangedEventArgs e)
+        {
+            string item = e.SelectedItem as string;
+            DisplayAlert("FileSelected", e.SelectedItem.ToString(), "OK");
+        }
     }
 }

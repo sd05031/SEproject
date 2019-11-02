@@ -15,6 +15,8 @@
             <Label Text="     Directory List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
             <ListView x:Name="DirList"
+                      ItemTapped="DirTapped"
+                      
                       VerticalOptions="FillAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -27,7 +29,8 @@
             <Label Text="     File List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
             <ListView x:Name="FList"
-                          VerticalOptions="EndAndExpand">
+                      ItemTapped="FTapped"
+                      VerticalOptions="EndAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding}"
