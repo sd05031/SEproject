@@ -11,13 +11,14 @@ namespace SEproject.Data
     {
         string path;
         private string token;
-        string[] file;
-        string[] directory;
+        public string[] File { get; private set; }
+        public string[] Directory { get; private set; }
 
         public DirectoryControl(string t)
         {
             path = ".";
             token = t;
+            get_list();
         }
 
         string POST()
@@ -59,17 +60,17 @@ namespace SEproject.Data
                 JArray directories = JArray.Parse(directory_list);
                 JArray files = JArray.Parse(file_list);
 
-                file = new string[files.Count];
-                directory = new string[directories.Count];
+                File = new string[files.Count];
+                Directory = new string[directories.Count];
 
                 for ( int i = 0; i < directories.Count; i++)
                 {
-                    directory[i] = directories[i].ToString();
+                    Directory[i] = directories[i].ToString();
                 }
                 
                 for ( int i = 0; i < files.Count; i ++)
                 {
-                    file[i] = files[i].ToString();
+                    File[i] = files[i].ToString();
                 }
 
                 return 0;
