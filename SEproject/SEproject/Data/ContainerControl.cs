@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -42,20 +43,35 @@ namespace SEproject.Data
 
         int remove()
         {
-            //TODO
-            return 0;
+            string r = GET("/rm/" + container.uuid);
+            JObject result = JObject.Parse(r);
+            if ( result["code"].ToString() == "0")
+            {
+                return 0;
+            }
+            return -1;
         }
 
         int start()
         {
-            //TODO
-            return 0;
+            string r = GET("/start/" + container.uuid);
+            JObject result = JObject.Parse(r);
+            if (result["code"].ToString() == "0")
+            {
+                return 0;
+            }
+            return -1;
         }
 
         int stop()
         {
-            //TODO
-            return 0;
+            string r = GET("/stop/" + container.uuid);
+            JObject result = JObject.Parse(r);
+            if(result["code"].ToString() == "0")
+            {
+                return 0;
+            }
+            return -1;
         }
     }
 }
