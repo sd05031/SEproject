@@ -44,6 +44,10 @@ namespace SEproject.Data
 
             return text;
         }
+        public string gettoken()
+        {
+            return account.getToken();
+        }
         public int update_container()
         {
             containers = new List<Container>();

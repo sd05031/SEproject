@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SEproject.ContainerDetail">
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Orientation="Vertical">
+            <Label Text="uid" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="uidLabel" Margin="5"/>
+
+            <Label Text="tag" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="tagLabel" Margin="5"/>
+
+            <Label Text="status" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="statusLabel" Margin="5"/>
+
+            <Label Text="image" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="imageLabel" Margin="5"/>
+            
+            <Label Text="port" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="portLabel" Margin="5"/>
+            
+            <Label Text="short_id" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="shortLabel" Margin="5"/>
+
+            <Label Text="started_time" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="startLabel" Margin="5"/>
+            
+            <Label Text="uuid" Margin="10,0,0,0" FontAttributes="Bold"/>
+            <Label x:Name="uuidLabel" Margin="5"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

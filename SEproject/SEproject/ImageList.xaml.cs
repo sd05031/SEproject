@@ -27,7 +27,11 @@ namespace SEproject
         void OnTapped(object sender, SelectedItemChangedEventArgs e)
         {
             Data.Image Item = e.SelectedItem as Data.Image;
-            DisplayAlert("Notice", Item.uid, "OK");
+            ImageControl IC = new ImageControl(Item, manage.gettoken());
+            Navigation.PushAsync(new ImageDetail
+            {
+                BindingContext = IC
+            });
         }
     }
 }

@@ -27,6 +27,7 @@ namespace SEproject
         void OnTapped(object sender, SelectedItemChangedEventArgs e)
         {
             Container Item = e.SelectedItem as Container;
+
             DisplayAlert("Notice", Item.uid, "OK!");
         }
     }
