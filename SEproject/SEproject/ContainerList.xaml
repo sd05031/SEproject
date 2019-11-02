@@ -7,7 +7,8 @@
              x:Class="SEproject.ContainerList">
 
     <StackLayout>
-        <ListView x:Name="CList">
+        <ListView x:Name="CList"
+                  ItemTapped="OnTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Tag}"

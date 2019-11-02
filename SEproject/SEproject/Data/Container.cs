@@ -29,17 +29,5 @@ namespace SEproject.Data
             started_time = j["started_time"].ToString();
             uuid = j["uuid"].ToString();
         }
-
-        /*public Container(Container con)
-        {
-            this.uid = con.uid;
-            this.Tag = con.Tag;
-            this.Status = con.Status;
-            this.image = con.image;
-            this.port = con.port;
-            this.short_id = con.short_id;
-            this.started_time = con.started_time;
-            this.uuid = con.uuid;
-        }*/
     }
 }

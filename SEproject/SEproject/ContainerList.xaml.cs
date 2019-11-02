@@ -14,7 +14,6 @@ namespace SEproject
     public partial class ContainerList : ContentPage
     {
         Manage manage;
-
         public ContainerList()
         {
             InitializeComponent();
@@ -24,6 +23,11 @@ namespace SEproject
             manage = (Manage)BindingContext;
             CList.ItemsSource = manage.getContainers();
             base.OnAppearing();
+        }
+        void OnTapped(object sender, SelectedItemChangedEventArgs e)
+        {
+            Container Item = e.SelectedItem as Container;
+            DisplayAlert("Notice", Item.uid, "OK!");
         }
     }
 }

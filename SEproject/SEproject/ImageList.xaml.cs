@@ -24,5 +24,10 @@ namespace SEproject
             IList.ItemsSource = manage.getImages();
             base.OnAppearing();
         }
+        void OnTapped(object sender, SelectedItemChangedEventArgs e)
+        {
+            Data.Image Item = e.SelectedItem as Data.Image;
+            DisplayAlert("Notice", Item.uid, "OK");
+        }
     }
 }

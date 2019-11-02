@@ -10,7 +10,7 @@ namespace SEproject.Data
         public string uid;
         public string os;
         public string Tag { get; set; }
-        int port;
+        public int port;
         public string Status { get; set; }
         public string short_id;
         public string uuid;

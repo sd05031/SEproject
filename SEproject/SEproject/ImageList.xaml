@@ -7,7 +7,8 @@
              x:Class="SEproject.ImageList">
 
     <StackLayout>
-        <ListView x:Name="IList">
+        <ListView x:Name="IList"
+                  ItemTapped="OnTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Tag}"
