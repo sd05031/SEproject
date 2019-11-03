@@ -12,10 +12,10 @@ namespace SEproject.Data
         Container container;
         private string token;
 
-        public ContainerControl(Container con, string t)
+        public ContainerControl(Container container, string token)
         {
-            container = con;
-            token = t;
+            this.container = container;
+            this.token = token;
         }
 
         public Container getContainer()

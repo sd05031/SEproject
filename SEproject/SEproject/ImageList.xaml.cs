@@ -27,7 +27,7 @@ namespace SEproject
         void OnTapped(object sender, ItemTappedEventArgs e)
         {
             Data.Image Item = e.Item as Data.Image;
-            ImageControl IC = new ImageControl(Item, manage.gettoken());
+            ImageControl IC = new ImageControl(Item, manage.getToken());
             Navigation.PushAsync(new ImageDetail
             {
                 BindingContext = IC

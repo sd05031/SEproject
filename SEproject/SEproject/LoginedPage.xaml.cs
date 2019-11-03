@@ -50,7 +50,7 @@ namespace SEproject
 
         private void showDirectory(object sender, EventArgs e)
         {
-            DirectoryControl DC = new DirectoryControl(manage.gettoken());
+            DirectoryControl DC = new DirectoryControl(manage.getToken());
             Navigation.PushAsync(new DirectoryPage
             {
                 BindingContext = DC

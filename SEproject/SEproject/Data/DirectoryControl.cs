@@ -12,13 +12,11 @@ namespace SEproject.Data
         string path;
         private string token;
         private IList<File> Files;
-        public string[] File { get; private set; }
-        public string[] Directory { get; private set; }
 
-        public DirectoryControl(string t)
+        public DirectoryControl(string token)
         {
             path = ".";
-            token = t;
+            this.token = token;
             get_list();
         }
 
@@ -145,7 +143,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        public void download(string filepath)
+        public int download(string filepath)
         {
             string url = "http://nekop.kr:3000/api/v1/directory/download";
             string postdata = "path=" + filepath;
@@ -169,8 +167,21 @@ namespace SEproject.Data
             StreamReader sr = new StreamReader(datastream);
             string rtext = sr.ReadToEnd();
 
-            JObject jobject = JObject.Parse(rtext);
-            int result = Int32.Parse(jobject["code"].ToString());
+            JObject json = JObject.Parse(rtext);
+            int result = Int32.Parse(json["code"].ToString());
+            string value = json["msg"].ToString();
+            value = Base64Decoder(value);
+
+            return result;
+        }
+        private string Base64Decoder(string Base64text)
+        {
+            System.Text.Encoding encoding;
+            encoding = System.Text.Encoding.UTF8;
+
+            byte[] arr = System.Convert.FromBase64String(Base64text);
+            return encoding.GetString(arr);
+
         }
         public void upload()
         {

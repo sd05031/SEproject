@@ -10,14 +10,14 @@ namespace SEproject.Data
     class Manage
     {
         Account account;
-        private IList<Container> containers { get; set; }
-        private IList<Image> images { get; set; }
+        private IList<Container> Containers { get; set; }
+        private IList<Image> Images { get; set; }
         string path;
 
         public Manage()
         {
-            containers = null;
-            images = null;
+            Containers = null;
+            Images = null;
             path = ".";
         }
 
@@ -44,13 +44,13 @@ namespace SEproject.Data
 
             return text;
         }
-        public string gettoken()
+        public string getToken()
         {
             return account.getToken();
         }
         public int update_container()
         {
-            containers = new List<Container>();
+            Containers = new List<Container>();
             JObject result = JObject.Parse(GET("containers"));
             if (result["code"].ToString() == "0")
             {
@@ -58,7 +58,7 @@ namespace SEproject.Data
 
                 for (int i = 0; i < jarray.Count; i++)
                 {
-                    containers.Add(new Container(jarray[i].ToString()));
+                    Containers.Add(new Container(jarray[i].ToString()));
                 }
                 return jarray.Count;
             }
@@ -70,7 +70,7 @@ namespace SEproject.Data
 
         public int update_image()
         {
-            images = new List<Image>();
+            Images = new List<Image>();
             JObject result = JObject.Parse(GET("images"));
             if (result["code"].ToString() == "0")
             {
@@ -78,7 +78,7 @@ namespace SEproject.Data
 
                 for (int i = 0; i < jarray.Count; i++)
                 {
-                    images.Add(new Image(jarray[i].ToString()));
+                    Images.Add(new Image(jarray[i].ToString()));
                 }
                 return jarray.Count;
             }
@@ -90,19 +90,19 @@ namespace SEproject.Data
 
         public IList<Container> getContainers()
         {
-            if (containers == null)
+            if (Containers == null)
             {
                 update_container();
             }
-            return containers;
+            return Containers;
         }
         public IList<Image> getImages()
         {
-            if (images == null)
+            if (Images == null)
             {
                 update_image();
             }
-            return images;
+            return Images;
         }
     }
 }
