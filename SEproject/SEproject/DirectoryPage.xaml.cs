@@ -33,11 +33,11 @@ namespace SEproject
             DirList.ItemsSource = files;
             path_Label.Text = DC.getpath();
         }
-        void OnTapped(Object sender, SelectedItemChangedEventArgs e)
+        void OnTapped(Object sender, ItemTappedEventArgs e)
         {
-            Data.File item = e.SelectedItem as Data.File;
+            Data.File item = e.Item as Data.File;
 
-            if ( item.Is_directory == 1 )
+            if (item.Is_directory == 1)
             {
                 DC.movepath(item.Name);
                 get_list();
@@ -46,7 +46,6 @@ namespace SEproject
             {
                 DisplayAlert("FileSelected", item.Name, "OK");
             }
-            
         }
     }
 }

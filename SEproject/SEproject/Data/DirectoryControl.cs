@@ -70,13 +70,11 @@ namespace SEproject.Data
                 for (int i = 0; i < directories.Count; i++)
                 {
                     Files.Add(new Data.File(directories[i].ToString(), 1));
-                    //Directory[i] = directories[i].ToString();
                 }
 
                 for (int i = 0; i < files.Count; i++)
                 {
                     Files.Add(new Data.File(files[i].ToString(), 0));
-                    //File[i] = files[i].ToString();
                 }
                 return 0;
             }

@@ -24,9 +24,9 @@ namespace SEproject
             IList.ItemsSource = manage.getImages();
             base.OnAppearing();
         }
-        void OnTapped(object sender, SelectedItemChangedEventArgs e)
+        void OnTapped(object sender, ItemTappedEventArgs e)
         {
-            Data.Image Item = e.SelectedItem as Data.Image;
+            Data.Image Item = e.Item as Data.Image;
             ImageControl IC = new ImageControl(Item, manage.gettoken());
             Navigation.PushAsync(new ImageDetail
             {

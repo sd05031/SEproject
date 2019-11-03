@@ -24,9 +24,9 @@ namespace SEproject
             CList.ItemsSource = manage.getContainers();
             base.OnAppearing();
         }
-        void OnTapped(object sender, SelectedItemChangedEventArgs e)
+        void OnTapped(object sender, ItemTappedEventArgs e)
         {
-            Container Item = e.SelectedItem as Container;
+            Container Item = e.Item as Container;
             ContainerControl CC = new ContainerControl(Item, manage.gettoken());
             Navigation.PushAsync(new ContainerDetail
             {
