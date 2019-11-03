@@ -11,6 +11,7 @@ namespace SEproject.Data
     {
         string path;
         private string token;
+        private IList<File> Files;
         public string[] File { get; private set; }
         public string[] Directory { get; private set; }
 
@@ -24,7 +25,7 @@ namespace SEproject.Data
         string POST()
         {
             string url = "http://nekop.kr:3000/api/v1/directory";
-            string postdata = "path="+path;
+            string postdata = "path=" + path;
             byte[] bytearray = Encoding.UTF8.GetBytes(postdata);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -50,8 +51,9 @@ namespace SEproject.Data
 
         int get_list()
         {
+            Files = new List<File>();
             JObject json = JObject.Parse(POST());
-            if ( json["code"].ToString() == "0")
+            if (json["code"].ToString() == "0")
             {
                 var msg = json["msg"];
                 var directory_list = msg["dir"].ToString();
@@ -60,19 +62,22 @@ namespace SEproject.Data
                 JArray directories = JArray.Parse(directory_list);
                 JArray files = JArray.Parse(file_list);
 
-                File = new string[files.Count];
-                Directory = new string[directories.Count];
-
-                for ( int i = 0; i < directories.Count; i++)
+                path = msg["path"].ToString().Substring(6);
+                if ( path.Length > 2)
                 {
-                    Directory[i] = directories[i].ToString();
+                    Files.Add(new Data.File("..", 1));
                 }
-                
-                for ( int i = 0; i < files.Count; i ++)
+                for (int i = 0; i < directories.Count; i++)
                 {
-                    File[i] = files[i].ToString();
+                    Files.Add(new Data.File(directories[i].ToString(), 1));
+                    //Directory[i] = directories[i].ToString();
                 }
 
+                for (int i = 0; i < files.Count; i++)
+                {
+                    Files.Add(new Data.File(files[i].ToString(), 0));
+                    //File[i] = files[i].ToString();
+                }
                 return 0;
             }
             return -1;
@@ -80,8 +85,30 @@ namespace SEproject.Data
 
         public void movepath(string dir)
         {
-            path = path + "/" + dir;
+            if (dir == "..")
+            {
+                var splited = path.Split('/');
+                string newpath = "";
+                for ( int i = 0; i < splited.Length - 1; i ++)
+                {
+                    newpath += i == 0 ? splited[i] : "/" + splited[i];
+                }
+                path = newpath;
+            }
+            else
+            {
+                path = path + "/" + dir;
+            }
             get_list();
+        }
+
+        public IList<File> GetFiles()
+        {
+            return Files;
+        }
+        public string getpath()
+        {
+            return path;
         }
     }
 }

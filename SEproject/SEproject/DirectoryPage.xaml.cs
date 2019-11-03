@@ -16,6 +16,7 @@ namespace SEproject
         DirectoryControl DC;
         IList<string> file;
         IList<string> dir;
+        IList<Data.File> files;
         public DirectoryPage()
         {
             InitializeComponent();
@@ -23,28 +24,29 @@ namespace SEproject
         protected override void OnAppearing()
         {
             DC = (DirectoryControl)BindingContext;
-            string[] sample_file = { "a.txt", "b.txt", "abc.avi", "ggg.exe", "T.mp4","toe.mp3","ette.zip" };
-            string[] sample_dir = { "rootfolder", "data", "source", "src", "bin", "gos", "soee" };
-            //file = DC.File.ToList();
-            //dir = DC.Directory.ToList();
-            file = sample_file.ToList();
-            dir = sample_dir.ToList();
-
-            DirList.ItemsSource = dir;
-            FList.ItemsSource = file;
-            
+            get_list();
             base.OnAppearing();
         }
-
-        void DirTapped(Object sender, SelectedItemChangedEventArgs e)
+        void get_list()
         {
-            string item = e.SelectedItem.ToString();
-            DisplayAlert("DirSelected", e.SelectedItemIndex.ToString(), "OK");
+            files = DC.GetFiles();
+            DirList.ItemsSource = files;
+            path_Label.Text = DC.getpath();
         }
-        void FTapped(Object sender, SelectedItemChangedEventArgs e)
+        void OnTapped(Object sender, SelectedItemChangedEventArgs e)
         {
-            string item = e.SelectedItem as string;
-            DisplayAlert("FileSelected", e.SelectedItem.ToString(), "OK");
+            Data.File item = e.SelectedItem as Data.File;
+
+            if ( item.Is_directory == 1 )
+            {
+                DC.movepath(item.Name);
+                get_list();
+            }
+            else
+            {
+                DisplayAlert("FileSelected", item.Name, "OK");
+            }
+            
         }
     }
 }

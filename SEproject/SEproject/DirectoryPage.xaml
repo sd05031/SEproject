@@ -11,34 +11,21 @@
                 Orientation="Vertical"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="StartAndExpand">
-
-            <Label Text="     Directory List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
+            <Label Text="     Path" BackgroundColor="#000000" TextColor="#FFFFFF"/>
+            <Label x:Name="path_Label" Margin="10,0,0,0"/>
+            <Label Text="     List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
 
             <ListView x:Name="DirList"
-                      ItemTapped="DirTapped"
-                      
-                      VerticalOptions="FillAndExpand">
+                      ItemTapped="OnTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding}"
-                                  TextColor="Black"/>
+                        <TextCell Text="{Binding Name}"
+                                  Detail="{Binding Is_directory_Value}"
+                                  TextColor="Black"
+                                  DetailColor="HotPink"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
-            <Label Text="     File List" BackgroundColor="#000000" TextColor="#FFFFFF"/>
-
-            <ListView x:Name="FList"
-                      ItemTapped="FTapped"
-                      VerticalOptions="EndAndExpand">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding}"
-                                  TextColor="Black"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
