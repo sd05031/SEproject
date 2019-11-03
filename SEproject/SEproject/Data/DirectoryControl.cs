@@ -22,7 +22,7 @@ namespace SEproject.Data
             get_list();
         }
 
-        string POST()
+        string GetDirList()
         {
             string url = "http://nekop.kr:3000/api/v1/directory";
             string postdata = "path=" + path;
@@ -49,10 +49,74 @@ namespace SEproject.Data
             return rtext;
         }
 
+        int removeFile(string filename)
+        {
+            string url = "http://nekop.kr:3000/api/v1/directory/remove";
+            string postdata = "path=" + path + "/" +filename;
+            byte[] bytearray = Encoding.UTF8.GetBytes(postdata);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = bytearray.Length;
+            request.Timeout = 30 * 1000;
+            request.Headers.Add("X-Access-Token", token);
+
+            Stream datastream = request.GetRequestStream();
+            datastream.Write(bytearray, 0, bytearray.Length);
+            datastream.Close();
+
+            HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
+
+            datastream = resp.GetResponseStream();
+            StreamReader sr = new StreamReader(datastream);
+            string rtext = sr.ReadToEnd();
+
+            JObject jobject = JObject.Parse(rtext);
+            int result = Int32.Parse(jobject["code"].ToString());
+
+            return result;
+        }
+
+        int removeDir()
+        {
+            if(path.Length < 2)
+            {
+                return -1;
+            }
+            string url = "http://nekop.kr:3000/api/v1/directory/removedir";
+            string postdata = "path=" + path;
+            byte[] bytearray = Encoding.UTF8.GetBytes(postdata);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = bytearray.Length;
+            request.Timeout = 30 * 1000;
+            request.Headers.Add("X-Access-Token", token);
+
+            Stream datastream = request.GetRequestStream();
+            datastream.Write(bytearray, 0, bytearray.Length);
+            datastream.Close();
+
+            HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
+
+            datastream = resp.GetResponseStream();
+            StreamReader sr = new StreamReader(datastream);
+            string rtext = sr.ReadToEnd();
+
+            JObject jobject = JObject.Parse(rtext);
+            int result = Int32.Parse(jobject["code"].ToString());
+
+            return result;
+        }
+
         int get_list()
         {
             Files = new List<File>();
-            JObject json = JObject.Parse(POST());
+            JObject json = JObject.Parse(GetDirList());
             if (json["code"].ToString() == "0")
             {
                 var msg = json["msg"];
@@ -81,6 +145,14 @@ namespace SEproject.Data
             return -1;
         }
 
+        public void download()
+        {
+
+        }
+        public void upload()
+        {
+
+        }
         public void movepath(string dir)
         {
             if (dir == "..")

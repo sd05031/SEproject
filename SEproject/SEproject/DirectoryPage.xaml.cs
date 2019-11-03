@@ -47,5 +47,14 @@ namespace SEproject
                 DisplayAlert("FileSelected", item.Name, "OK");
             }
         }
+        async void DeleteButton(Object sender, EventArgs e)
+        {
+            var result = await DisplayAlert("Notice", "정말 이 폴더를 삭제하시겠습니까?\n삭제후에는 복구가 불가능합니다.", "YES", "NO");
+            if ( result)
+            {
+                await DisplayAlert("Notice", "삭제합니다", "OK");
+                //removeDir result=-1 >> root folder //
+            }
+        }
     }
 }
