@@ -20,7 +20,7 @@ namespace SEproject.Data
             get_list();
         }
 
-        string GetDirList()
+        string GetDirInfo()
         {
             string url = "http://nekop.kr:3000/api/v1/directory";
             string postdata = "path=" + path;
@@ -114,7 +114,7 @@ namespace SEproject.Data
         int get_list()
         {
             Files = new List<File>();
-            JObject json = JObject.Parse(GetDirList());
+            JObject json = JObject.Parse(GetDirInfo());
             if (json["code"].ToString() == "0")
             {
                 var msg = json["msg"];

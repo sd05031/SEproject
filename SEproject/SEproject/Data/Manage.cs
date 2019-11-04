@@ -12,13 +12,11 @@ namespace SEproject.Data
         Account account;
         private IList<Container> Containers { get; set; }
         private IList<Image> Images { get; set; }
-        string path;
 
         public Manage()
         {
             Containers = null;
             Images = null;
-            path = ".";
         }
 
         public void setAccount(Account a)
