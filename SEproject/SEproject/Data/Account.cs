@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace SEproject.Data
 {
@@ -22,18 +21,24 @@ namespace SEproject.Data
             };
 
             var form = new FormUrlEncodedContent(pair);
-            var response = client.PostAsync(uri, form).Result;
-
-            var result = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-            if (result["code"].ToString() == "0")
+            try
             {
-                token = result["msg"]["token"].ToString();
-                tenant = result["msg"]["tenant"].ToString();
-                expire_date = Double.Parse(result["msg"]["expire_date"].ToString());
+                var response = client.PostAsync(uri, form).Result;
+                var result = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+                if (result["code"].ToString() == "0")
+                {
+                    token = result["msg"]["token"].ToString();
+                    tenant = result["msg"]["tenant"].ToString();
+                    expire_date = Double.Parse(result["msg"]["expire_date"].ToString());
 
-                return 0;
+                    return 0;
+                }
+                return -1;
             }
-            return -1;
+            catch (System.AggregateException aex)
+            {
+                return -2;
+            }
         }
 
         public string getToken()

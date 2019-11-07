@@ -9,7 +9,7 @@ namespace SEproject.Data
 {
     class Manage
     {
-        Account account;
+        ServerConnector serverconnector;
         private IList<Container> Containers { get; set; }
         private IList<Image> Images { get; set; }
 
@@ -19,37 +19,20 @@ namespace SEproject.Data
             Images = null;
         }
 
-        public void setAccount(Account a)
+        public void setServerConnector(ServerConnector sc)
         {
-            account = a;
+            serverconnector = sc;
             update_container();
             update_image();
         }
-        private string GET(string suburl)
+        public ServerConnector GetServerConnector()
         {
-            string url = "http://nekop.kr:3000/api/v1/";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + suburl);
-            request.Method = "GET";
-            request.Timeout = 30 * 1000;
-            request.Headers.Add("X-Access-Token", account.getToken());
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            HttpStatusCode status = response.StatusCode;
-
-            Stream rs = response.GetResponseStream();
-            StreamReader sr = new StreamReader(rs);
-            string text = sr.ReadToEnd();
-
-            return text;
-        }
-        public string getToken()
-        {
-            return account.getToken();
+            return serverconnector;
         }
         public int update_container()
         {
             Containers = new List<Container>();
-            JObject result = JObject.Parse(GET("containers"));
+            JObject result = JObject.Parse(serverconnector.GET("containers"));
             if (result["code"].ToString() == "0")
             {
                 JArray jarray = JArray.Parse(result["msg"].ToString());
@@ -69,7 +52,7 @@ namespace SEproject.Data
         public int update_image()
         {
             Images = new List<Image>();
-            JObject result = JObject.Parse(GET("images"));
+            JObject result = JObject.Parse(serverconnector.GET("images"));
             if (result["code"].ToString() == "0")
             {
                 JArray jarray = JArray.Parse(result["msg"].ToString());

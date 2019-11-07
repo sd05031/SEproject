@@ -27,9 +27,10 @@ namespace SEproject
             int result = account.Login(username_entry.Text.ToString(), password_entry.Text.ToString());
             if ( result == 0)
             {
+                ServerConnector serverconnector = new ServerConnector(account);
                 Application.Current.MainPage = new NavigationPage(new LoginedPage
                 {
-                    BindingContext = account
+                    BindingContext = serverconnector
                 });
             }
             else

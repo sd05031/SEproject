@@ -14,6 +14,7 @@ namespace SEproject
     public partial class LoginedPage : ContentPage
     {
         Manage manage;
+        ServerConnector SC;
         public LoginedPage()
         {
             InitializeComponent();
@@ -22,7 +23,8 @@ namespace SEproject
 
         protected override void OnAppearing()
         {
-            manage.setAccount((Account)BindingContext);
+            SC = (ServerConnector)BindingContext;
+            manage.setServerConnector(SC);
             base.OnAppearing();
         }
 
@@ -30,7 +32,6 @@ namespace SEproject
         {
             Application.Current.MainPage = new NavigationPage(new MainPage());
             return true;
-            //return base.OnBackButtonPressed();
         }
 
         private void getImages(object sender, EventArgs e)
@@ -50,7 +51,7 @@ namespace SEproject
 
         private void showDirectory(object sender, EventArgs e)
         {
-            DirectoryControl DC = new DirectoryControl(manage.getToken());
+            DirectoryControl DC = new DirectoryControl(SC);
             Navigation.PushAsync(new DirectoryPage
             {
                 BindingContext = DC

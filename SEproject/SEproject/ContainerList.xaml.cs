@@ -27,7 +27,7 @@ namespace SEproject
         void OnTapped(object sender, ItemTappedEventArgs e)
         {
             Container Item = e.Item as Container;
-            ContainerControl CC = new ContainerControl(Item, manage.getToken());
+            ContainerControl CC = new ContainerControl(Item, manage.GetServerConnector());
             Navigation.PushAsync(new ContainerDetail
             {
                 BindingContext = CC
