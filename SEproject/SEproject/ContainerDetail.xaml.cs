@@ -36,34 +36,52 @@ namespace SEproject
             base.OnAppearing();
         }
 
-        async void RemoveButton(Object sender, EventArgs e)
+        async void RemoveButtonClicked(Object sender, EventArgs e)
         {
-            var result = await DisplayAlert("Notice", "컨테이너를 삭제하시겠습니까?", "YES", "NO");
+            var result = await DisplayAlert("Notice", "해당 컨테이너를 삭제하시겠습니까?", "YES", "NO");
             if (result)
             {
-                DisplayAlert("Ye-ah!", "Sak-Jae-Da!", "OK!");
-            }
-            else
-            {
-                DisplayAlert("??", "JJol?", "lin-jung");
+                if ( /*CC.remove() == */ false )
+                {
+                    await DisplayAlert("Notice", "컨테이너가 성공적으로 삭제되었습니다", "확인");
+                    await Navigation.PopAsync();
+                }
+                else
+                    await DisplayAlert("Notice", "컨테이너 삭제에 실패하였습니다", "확인");
             }
         }
 
-        async void StartButton(Object sender, EventArgs e)
+        async void StartButtonClicked(Object sender, EventArgs e)
         {
             var result = await DisplayAlert("Notice", "컨테이너를 시작 하시겠습니까?", "YES", "NO");
             if (result)
             {
-                DisplayAlert("Notice", "컨테이너가 시작됩니다.", "확인");
+                if (CC.start() == 0)
+                {
+                    await DisplayAlert("Notice", "컨테이너가 성공적으로 시작되었습니다", "확인");
+                    StartButton.IsEnabled = false;
+                    RemoveButton.IsEnabled = false;
+                    StopButton.IsEnabled = true;
+                }
+                else
+                    await DisplayAlert("Notice", "컨테이너 시작을 실패하였습니다", "확인");
             }
         }
 
-        async void StopButton(Object sender, EventArgs e)
+        async void StopButtonClicked(Object sender, EventArgs e)
         {
             var result = await DisplayAlert("Notice", "컨테이너를 멈추시겠습니까?", "YES", "NO");
             if (result)
             {
-                DisplayAlert("Notice", "컨테이너가 멈춥니다.", "확인");
+                if (CC.stop() == 0)
+                {
+                    await DisplayAlert("Notice", "컨테이너가 중지 되었습니다", "확인");
+                    StartButton.IsEnabled = true;
+                    RemoveButton.IsEnabled = true;
+                    StopButton.IsEnabled = false;
+                }
+                else
+                    await DisplayAlert("Notice", "컨테이너 중지에 실패하였습니다", "확인");
             }
         }
     }

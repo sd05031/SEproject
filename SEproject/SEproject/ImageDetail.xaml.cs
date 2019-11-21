@@ -36,12 +36,18 @@ namespace SEproject
             base.OnAppearing();
         }
 
-        async void RunButton(Object sender, EventArgs e)
+        async void RunButtonClicked(Object sender, EventArgs e)
         {
             var result = await DisplayAlert("Notice", "이미지를 실행 하시겠습니까?", "YES", "NO");
             if (result)
             {
-                DisplayAlert("Notice", "이미지가 실행됩니다.", "확인");
+                if ( IC.run() == 0)
+                {
+                    await DisplayAlert("Notice", "이미지가 성공적으로 실행되었습니다", "확인");
+                    RunButton.IsEnabled = false;
+                }
+                else
+                    await DisplayAlert("Notice", "이미지 실행을 실패하였습니다.", "확인");
             }
         }
 
@@ -50,11 +56,13 @@ namespace SEproject
             var result = await DisplayAlert("Notice", "정말 삭제 하시겠습니까?\n삭제된 이미지는 복구가 불가능합니다.", "YES", "NO");
             if (result)
             {
-                DisplayAlert("예아", "삭제다!", "확인");
-            }
-            else
-            {
-                DisplayAlert("???", "쫄???", "린정");
+                if ( /*IC.remove() == 0 */ false) 
+                {
+                    await DisplayAlert("Notice", "이미지가 성공적으로 삭제 되었습니다", "확인");
+                    await Navigation.PopAsync();
+                }
+                else
+                    await DisplayAlert("Notice", "이미지 삭제에 실패하였습니다", "확인");
             }
         }
     }

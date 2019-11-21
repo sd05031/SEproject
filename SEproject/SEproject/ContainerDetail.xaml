@@ -50,13 +50,16 @@
                 VerticalOptions="EndAndExpand"
                 Orientation="Horizontal">
                 <Button Text="Remove"
-                        Clicked="RemoveButton"
+                        x:Name="RemoveButton"
+                        Clicked="RemoveButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
                 <Button Text="Start"
-                        Clicked="StartButton"
+                        x:Name="StartButton"
+                        Clicked="StartButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
                 <Button Text="Stop"
-                        Clicked="StopButton"
+                        x:Name="StopButton"
+                        Clicked="StopButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
             </StackLayout>
         </StackLayout>

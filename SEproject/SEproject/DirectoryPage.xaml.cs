@@ -44,7 +44,14 @@ namespace SEproject
             }
             else
             {
+                string[] data = new string[2];
+                data[0] = DC.getpath();
+                data[1] = item.Name;
                 DisplayAlert("FileSelected", item.Name, "OK");
+                
+                Navigation.PushAsync(new FileDetail{
+                    BindingContext = data
+                });
             }
         }
         async void DeleteButton(Object sender, EventArgs e)

@@ -17,7 +17,7 @@ namespace SEproject.Data
         {
             return image;
         }
-        int remove()
+        public int remove()
         {
             JObject result = JObject.Parse(serverconnector.GET("image/rm/" + image.uuid));
             if(result["code"].ToString() == "0")
@@ -27,7 +27,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        int run()
+        public int run()
         {
             JObject result = JObject.Parse(serverconnector.GET("image/run/" + image.uuid + "/" + image.port));
             if (result["code"].ToString() == "0")

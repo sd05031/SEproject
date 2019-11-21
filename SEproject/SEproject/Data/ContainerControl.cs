@@ -18,7 +18,7 @@ namespace SEproject.Data
             return container;
         }
 
-        int remove()
+        public int remove()
         {
             string r = serverconnector.GET("container/rm/" + container.uuid);
             JObject result = JObject.Parse(r);
@@ -29,7 +29,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        int start()
+        public int start()
         {
             string r = serverconnector.GET("container/start/" + container.uuid);
             JObject result = JObject.Parse(r);
@@ -40,7 +40,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        int stop()
+        public int stop()
         {
             string r = serverconnector.GET("container/stop/" + container.uuid);
             JObject result = JObject.Parse(r);

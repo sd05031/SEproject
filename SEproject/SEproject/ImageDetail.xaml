@@ -48,7 +48,8 @@
                         Clicked="DeleteButton" 
                         HorizontalOptions="FillAndExpand"/>
                 <Button Text="Run" 
-                        Clicked="RunButton"
+                        x:Name="RunButton"
+                        Clicked="RunButtonClicked"
                         HorizontalOptions="FillAndExpand"/>
             </StackLayout>
         </StackLayout>

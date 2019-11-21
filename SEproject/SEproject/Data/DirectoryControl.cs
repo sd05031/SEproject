@@ -83,7 +83,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        public int download(string filepath)
+        static public JObject download(string filepath)
         {
             string url = "http://nekop.kr:3000/api/v1/directory/download";
             string postdata = "path=" + filepath;
@@ -108,13 +108,13 @@ namespace SEproject.Data
             string rtext = sr.ReadToEnd();
 
             JObject json = JObject.Parse(rtext);
-            int result = Int32.Parse(json["code"].ToString());
+            //int result = Int32.Parse(json["code"].ToString());
             string value = json["msg"].ToString();
-            value = Base64Decoder(value);
+            json["msg"] = Base64Decoder(value);
 
-            return result;
+            return json;
         }
-        private string Base64Decoder(string Base64text)
+        static private string Base64Decoder(string Base64text)
         {
             System.Text.Encoding encoding;
             encoding = System.Text.Encoding.UTF8;
