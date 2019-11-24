@@ -6,16 +6,15 @@
              mc:Ignorable="d"
              x:Class="SEproject.FileDetail">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="  Path" BackgroundColor="Black" TextColor="White"/>
+        <StackLayout
+            Margin="10">
+            <Label Text="  Path" BackgroundColor="Black" TextColor="White" FontSize="Medium"/>
             <Label x:Name="PathLabel"/>
-            <Label Text="  File Name" BackgroundColor="Black" TextColor="White"/>
+            <Label Text="  File Name" BackgroundColor="Black" TextColor="White" FontSize="Medium"/>
             <Label x:Name="FNameLabel"/>
-            <Label Text="  내용 미리보기" BackgroundColor="Black" TextColor="White"/>
-            <Label x:Name="neyoung"/>
+            <Label Text="  내용 미리보기" BackgroundColor="Black" TextColor="White" FontSize="Medium"/>
+            <Label x:Name="FileData" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+            <Button Text="파일 내려받기" Clicked="Download_Button_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

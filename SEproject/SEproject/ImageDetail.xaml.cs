@@ -56,7 +56,7 @@ namespace SEproject
             var result = await DisplayAlert("Notice", "정말 삭제 하시겠습니까?\n삭제된 이미지는 복구가 불가능합니다.", "YES", "NO");
             if (result)
             {
-                if ( /*IC.remove() == 0 */ false) 
+                if ( IC.remove() == 0 ) 
                 {
                     await DisplayAlert("Notice", "이미지가 성공적으로 삭제 되었습니다", "확인");
                     await Navigation.PopAsync();

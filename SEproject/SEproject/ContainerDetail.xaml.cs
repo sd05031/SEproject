@@ -32,6 +32,19 @@ namespace SEproject
             shortLabel.Text = con.short_id;
             startLabel.Text = con.started_time;
             uuidLabel.Text = con.uuid;
+            
+            if(con.Status == "start")
+            {
+                StartButton.IsEnabled = false;
+                RemoveButton.IsEnabled = false;
+                StopButton.IsEnabled = true;
+            }
+            else
+            {
+                StartButton.IsEnabled = true;
+                RemoveButton.IsEnabled = true;
+                StopButton.IsEnabled = false;
+            }
 
             base.OnAppearing();
         }
@@ -41,10 +54,10 @@ namespace SEproject
             var result = await DisplayAlert("Notice", "해당 컨테이너를 삭제하시겠습니까?", "YES", "NO");
             if (result)
             {
-                if ( /*CC.remove() == */ false )
+                if ( CC.remove() == 0 )
                 {
                     await DisplayAlert("Notice", "컨테이너가 성공적으로 삭제되었습니다", "확인");
-                    await Navigation.PopAsync();
+                    Navigation.PopAsync();
                 }
                 else
                     await DisplayAlert("Notice", "컨테이너 삭제에 실패하였습니다", "확인");

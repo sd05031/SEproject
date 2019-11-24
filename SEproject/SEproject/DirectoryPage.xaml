@@ -26,7 +26,13 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Delete now Folder" Clicked="DeleteButton"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="EndAndExpand">
+                <Button Text="Delete now Folder" Clicked="DeleteButton" HorizontalOptions="FillAndExpand"/>
+                <Button Text="Upload File" Clicked="OnUploadButton" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

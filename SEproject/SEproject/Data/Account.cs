@@ -39,6 +39,10 @@ namespace SEproject.Data
             {
                 return -2;
             }
+            catch(Exception ex)
+            {
+                return -2;
+            }
         }
 
         public string getToken()

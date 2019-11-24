@@ -19,7 +19,7 @@
                 <Label Text="Username : " VerticalTextAlignment="Center"/>
                 <Entry
                     HorizontalOptions="FillAndExpand"
-                    Text="test"
+                    Text="kuroneko"
                     x:Name="username_entry"/>
             </StackLayout>
             
@@ -29,7 +29,7 @@
                 <Label Text="Password : " VerticalTextAlignment="Center"/>
                 <Entry
                     HorizontalOptions="FillAndExpand"
-                    Text="test"
+                    Text="nekoplus"
                     x:Name="password_entry"
                     IsPassword="True"/>
             </StackLayout>

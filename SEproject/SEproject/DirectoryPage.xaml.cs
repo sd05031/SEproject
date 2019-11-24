@@ -1,4 +1,6 @@
-﻿using SEproject.Data;
+﻿using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
+using SEproject.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,6 @@ namespace SEproject
     public partial class DirectoryPage : ContentPage
     {
         DirectoryControl DC;
-        IList<string> file;
-        IList<string> dir;
         IList<Data.File> files;
         public DirectoryPage()
         {
@@ -44,13 +44,13 @@ namespace SEproject
             }
             else
             {
-                string[] data = new string[2];
-                data[0] = DC.getpath();
-                data[1] = item.Name;
-                DisplayAlert("FileSelected", item.Name, "OK");
+                Object[] datas = new object[3];
+                datas[0] = DC.getpath();
+                datas[1] = item.Name;
+                datas[2] = DC;
                 
                 Navigation.PushAsync(new FileDetail{
-                    BindingContext = data
+                    BindingContext = datas
                 });
             }
         }
@@ -59,9 +59,43 @@ namespace SEproject
             var result = await DisplayAlert("Notice", "정말 이 폴더를 삭제하시겠습니까?\n삭제후에는 복구가 불가능합니다.", "YES", "NO");
             if ( result)
             {
-                await DisplayAlert("Notice", "삭제합니다", "OK");
-                //removeDir result=-1 >> root folder //
+                int value = DC.removeDir();
+                if ( value == 0)
+                {
+                    await DisplayAlert("Notice", "성공적으로 폴더가 삭제 되었습니다", "확인");
+                    DC.movepath("..");
+                }
+                else if ( value == -1)
+                {
+                    await DisplayAlert("Notice", "root 폴더는 삭제 할 수 없습니다", "확인");
+                }
+                else
+                {
+                    await DisplayAlert("Notice", "Error Code = " + value, "확인");
+                }
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if(DC.getpath().Length < 2)
+            {
+                DC.movepath("..");
+                return true;
+            }
+            else
+            {
+                return base.OnBackButtonPressed();
+            }
+        }
+
+        async void OnUploadButton(Object sender, EventArgs e)
+        {
+            FileData fd = await CrossFilePicker.Current.PickFile();
+            if (fd == null)
+                return;
+
+            DC.upload(fd);
         }
     }
 }

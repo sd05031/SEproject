@@ -14,6 +14,7 @@ namespace SEproject
     public partial class ImageList : ContentPage
     {
         Manage manage;
+        IList<SEproject.Data.Image> images;
         public ImageList()
         {
             InitializeComponent();
@@ -21,7 +22,18 @@ namespace SEproject
         protected override void OnAppearing()
         {
             manage = (Manage)BindingContext;
-            IList.ItemsSource = manage.getImages();
+            manage.update_image();
+
+            images = manage.getImages();
+            if (images == null || images.Count <= 0)
+            {
+                noLabel.IsVisible = true;
+                IList.IsVisible = false;
+            }
+            else
+            {
+                IList.ItemsSource = manage.getImages();
+            }
             base.OnAppearing();
         }
         void OnTapped(object sender, ItemTappedEventArgs e)

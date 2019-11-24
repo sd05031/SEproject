@@ -4,6 +4,7 @@ namespace SEproject
 {
     public partial class App : Application
     {
+        static public string SDCardPath;
         public App()
         {
             InitializeComponent();

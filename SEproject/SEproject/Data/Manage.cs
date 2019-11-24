@@ -22,8 +22,6 @@ namespace SEproject.Data
         public void setServerConnector(ServerConnector sc)
         {
             serverconnector = sc;
-            update_container();
-            update_image();
         }
         public ServerConnector GetServerConnector()
         {
@@ -32,7 +30,16 @@ namespace SEproject.Data
         public int update_container()
         {
             Containers = new List<Container>();
-            JObject result = JObject.Parse(serverconnector.GET("containers"));
+            JObject result;
+            try
+            {
+                result = JObject.Parse(serverconnector.GET("containers"));
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+
             if (result["code"].ToString() == "0")
             {
                 JArray jarray = JArray.Parse(result["msg"].ToString());

@@ -14,6 +14,7 @@ namespace SEproject
     public partial class ContainerList : ContentPage
     {
         Manage manage;
+        IList<Container> containers;
         public ContainerList()
         {
             InitializeComponent();
@@ -21,7 +22,18 @@ namespace SEproject
         protected override void OnAppearing()
         {
             manage = (Manage)BindingContext;
-            CList.ItemsSource = manage.getContainers();
+            manage.update_container();
+            containers = manage.getContainers();
+
+            if(containers == null || containers.Count <= 0)
+            {
+                noLabel.IsVisible = true;
+                CList.IsVisible = false;
+            }
+            else
+            {
+                CList.ItemsSource = containers;
+            }
             base.OnAppearing();
         }
         void OnTapped(object sender, ItemTappedEventArgs e)

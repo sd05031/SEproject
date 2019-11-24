@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace SEproject.Data
@@ -31,7 +33,7 @@ namespace SEproject.Data
             return result;
         }
 
-        int removeDir()
+        public int removeDir()
         {
             if(path.Length < 2)
             {
@@ -83,7 +85,7 @@ namespace SEproject.Data
             return -1;
         }
 
-        static public JObject download(string filepath)
+        public JObject download(string filepath)
         {
             string url = "http://nekop.kr:3000/api/v1/directory/download";
             string postdata = "path=" + filepath;
@@ -95,7 +97,7 @@ namespace SEproject.Data
             request.ContentType = "application/x-www-form-urlencoded";
             request.ContentLength = bytearray.Length;
             request.Timeout = 30 * 1000;
-            //request.Headers.Add("X-Access-Token", sc.gettoken());
+            request.Headers.Add("X-Access-Token", serverconnector.token);
 
             Stream datastream = request.GetRequestStream();
             datastream.Write(bytearray, 0, bytearray.Length);
@@ -123,9 +125,68 @@ namespace SEproject.Data
             return encoding.GetString(arr);
 
         }
-        public void upload()
+        public JObject upload(FileData filedata)
         {
+            string url = "http://nekop.kr:3000/api/v1/directory/upload";
+            string boundary = "---UploadBoundaryWebDocker";
+            byte[] Bbyte = Encoding.ASCII.GetBytes(boundary);
 
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.Method = "POST";
+            request.ContentType = "multipart/form-data; boundary=" + boundary;
+            request.ContentLength = filedata.DataArray.Length;
+            //request.Timeout = 30 * 1000;
+            request.Timeout = System.Threading.Timeout.Infinite;
+            request.KeepAlive = true;
+            request.Headers.Add("X-Access-Token", serverconnector.token);
+
+            Stream datastream = request.GetRequestStream();
+
+            //start
+            datastream.Write(Bbyte, 0, Bbyte.Length);
+            // main
+            string formTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"";
+            string header = string.Format(formTemplate, path, filedata.FileName);
+            byte[] hbyte = Encoding.UTF8.GetBytes(header);
+            datastream.Write(hbyte, 0, hbyte.Length);
+
+            string typeTemplate = "Content-Type: ";
+            if ( filedata.FileName.Substring(filedata.FileName.Length-3) == "txt")
+            {
+                typeTemplate += "text/plain";
+            }
+            else
+            {
+                typeTemplate += "application/octet-stream";
+            }
+            byte[] tByte = Encoding.UTF8.GetBytes(typeTemplate);
+            datastream.Write(tByte, 0, tByte.Length);
+            //var content = new MultipartFormDataContent(boundary);
+            //content.Add(new StreamContent(new MemoryStream(data)), "name?", filedata.FileName);
+
+            // main - file
+            FileStream filestream = new FileStream(filedata.FilePath, FileMode.Open, FileAccess.Read);
+            byte[] buffer = new byte[4096];
+            int bytesread = 0;
+            while ((bytesread = filestream.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                datastream.Write(buffer, 0, bytesread);
+            }
+
+            //end
+            datastream.Write(Bbyte, 0, Bbyte.Length);
+            datastream.Close();
+
+            HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
+
+            datastream = resp.GetResponseStream();
+            StreamReader sr = new StreamReader(datastream);
+            string rtext = sr.ReadToEnd();
+
+            JObject json = JObject.Parse(rtext);
+            
+            return json;
         }
         public void movepath(string dir)
         {
