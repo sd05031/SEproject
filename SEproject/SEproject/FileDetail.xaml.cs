@@ -74,7 +74,6 @@ namespace SEproject
             if (file_data == null)
             {
                 file_data = DC.download(data[0] + '/' + data[1])["msg"].ToString();
-                int len = file_data.Length / 2 + file_data.Length % 2;
                 System.IO.File.WriteAllBytes(System.IO.Path.Combine(folderpath, data[1]), Encoding.UTF8.GetBytes(file_data));
                 DisplayAlert("Notice","파일의 다운로드가 완료 되었습니다","OK");
             }
