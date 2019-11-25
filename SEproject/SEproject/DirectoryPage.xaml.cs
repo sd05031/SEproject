@@ -1,4 +1,5 @@
-﻿using Plugin.FilePicker;
+﻿using Newtonsoft.Json.Linq;
+using Plugin.FilePicker;
 using Plugin.FilePicker.Abstractions;
 using SEproject.Data;
 using System;
@@ -64,6 +65,7 @@ namespace SEproject
                 {
                     await DisplayAlert("Notice", "성공적으로 폴더가 삭제 되었습니다", "확인");
                     DC.movepath("..");
+                    get_list();
                 }
                 else if ( value == -1)
                 {
@@ -81,21 +83,13 @@ namespace SEproject
             if(DC.getpath().Length < 2)
             {
                 DC.movepath("..");
+                get_list();
                 return true;
             }
             else
             {
                 return base.OnBackButtonPressed();
             }
-        }
-
-        async void OnUploadButton(Object sender, EventArgs e)
-        {
-            FileData fd = await CrossFilePicker.Current.PickFile();
-            if (fd == null)
-                return;
-
-            DC.upload(fd);
         }
     }
 }

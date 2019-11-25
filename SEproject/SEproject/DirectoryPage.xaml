@@ -30,7 +30,7 @@
                          HorizontalOptions="FillAndExpand"
                          VerticalOptions="EndAndExpand">
                 <Button Text="Delete now Folder" Clicked="DeleteButton" HorizontalOptions="FillAndExpand"/>
-                <Button Text="Upload File" Clicked="OnUploadButton" HorizontalOptions="FillAndExpand"/>
+                <!--Button Text="Upload File" Clicked="OnUploadButton" HorizontalOptions="FillAndExpand"/-->
             </StackLayout>
 
         </StackLayout>

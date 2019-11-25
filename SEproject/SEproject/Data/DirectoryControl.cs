@@ -124,78 +124,12 @@ namespace SEproject.Data
             return encoding.GetString(arr);
 
         }
-        public JObject upload(FileData filedata)
+        public void upload(FileData filedata)
         {
-            string url = "http://nekop.kr:3000/api/v1/directory/upload";
-            string boundary = "---UploadBoundaryWebDocker";
-            byte[] Bbyte = Encoding.UTF8.GetBytes(boundary);
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.Method = "POST";
-            request.ContentType = "multipart/form-data; boundary=" + boundary;
-            //request.ContentLength = filedata.DataArray.Length;
-            //request.Timeout = 30 * 1000;
-            //request.Timeout = System.Threading.Timeout.Infinite;
-            request.KeepAlive = true;
-            request.Headers.Add("X-Access-Token", serverconnector.token);
-
-            Stream datastream = request.GetRequestStream();
-
-            //start
-            datastream.Write(Bbyte, 0, Bbyte.Length);
-
-            // main
-
-            string headerTemplate1 = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"";
-            string headerTemplate2 = "Content-Type: {0}";
             
-            // path
-            string header1 = string.Format(headerTemplate1, "path", filedata.FileName);
-            string header2 = string.Format(headerTemplate2, "text/plain");
-            byte[] header_byte1 = Encoding.UTF8.GetBytes(header1);
-            byte[] header_byte2 = Encoding.UTF8.GetBytes(header2);
-            datastream.Write(header_byte1, 0, header_byte1.Length);
-            datastream.Write(header_byte1, 0, header_byte2.Length);
-
-            byte[] path_byte = Encoding.UTF8.GetBytes(path + "/" + filedata.FileName);
-            datastream.Write(path_byte, 0, path_byte.Length);
-
-            datastream.Write(Bbyte, 0, Bbyte.Length);
-            // data
-
-            header1 = string.Format(headerTemplate1,"data",filedata.FileName);
-            header2 = string.Format(headerTemplate2, "application/octet-stream");
-            header_byte1 = Encoding.UTF8.GetBytes(header1);
-            header_byte2 = Encoding.UTF8.GetBytes(header2);
-            datastream.Write(header_byte1, 0, header_byte1.Length);
-            datastream.Write(header_byte1, 0, header_byte2.Length);
-
-            datastream.Write(filedata.DataArray, 0, filedata.DataArray.Length);
-
-            // main - file
-            /*FileStream filestream = new FileStream(filedata.FilePath, FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[4096];
-            int bytesread = 0;
-            while ((bytesread = filestream.Read(buffer, 0, buffer.Length)) != 0)
-            {
-                datastream.Write(buffer, 0, bytesread);
-            }*/
-
-            //end
-            datastream.Write(Bbyte, 0, Bbyte.Length);
-            datastream.Close();
-
-            HttpWebResponse resp = (HttpWebResponse)request.GetResponse();
-
-            datastream = resp.GetResponseStream();
-            StreamReader sr = new StreamReader(datastream);
-            string rtext = sr.ReadToEnd();
-
-            JObject json = JObject.Parse(rtext);
-            
-            return json;
         }
+
+
         public void movepath(string dir)
         {
             if (dir == "..")
