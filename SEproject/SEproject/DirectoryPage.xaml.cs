@@ -80,7 +80,7 @@ namespace SEproject
 
         protected override bool OnBackButtonPressed()
         {
-            if(DC.getpath().Length < 2)
+            if(DC.getpath().Length > 2)
             {
                 DC.movepath("..");
                 get_list();

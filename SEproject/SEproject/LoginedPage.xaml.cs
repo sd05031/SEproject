@@ -57,5 +57,10 @@ namespace SEproject
                 BindingContext = DC
             });
         }
+
+        private void LogOut(object sender, EventArgs e)
+        {
+            OnBackButtonPressed();
+        }
     }
 }
